@@ -1,0 +1,55 @@
+plugins {
+    id "me.tatarka.retrolambda" version "3.2.4"
+}
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+
+    compileSdkVersion rootProject.ext.compileSdkVersion as Integer
+    buildToolsVersion rootProject.ext.buildToolsVersion as String
+    defaultConfig {
+        applicationId rootProject.ext.applicationId as String
+        minSdkVersion rootProject.ext.minSdkVersion as Integer
+        targetSdkVersion rootProject.ext.targetSdkVersion as Integer
+        versionCode rootProject.ext.versionCode as Integer
+        versionName rootProject.ext.versionName as String
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dexOptions {
+        incremental true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+retrolambda {
+    jdk '/Library/Java/JavaVirtualMachines/jdk1.8.0_65.jdk/Contents/Home'
+    oldJdk '/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home'
+    javaVersion JavaVersion.VERSION_1_7
+    jvmArgs '-noverify'
+    defaultMethods false
+    incremental true
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    compile "com.jakewharton:butterknife:$rootProject.ext.butterKnifeVersion"
+    compile "com.google.android.gms:play-services-fitness:$rootProject.ext.googlePlayServices"
+    compile "com.android.support:appcompat-v7:$rootProject.ext.googleSupport"
+    compile "com.android.support:design:$rootProject.ext.supportVersion"
+    compile "com.github.satyan:sugar:$rootProject.ext.sugarVersion"
+    compile "com.facebook.stetho:stetho:$rootProject.ext.stethoVersion"
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
