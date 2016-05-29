@@ -56,7 +56,8 @@ public class Crunch extends AsyncTask<Context, Integer, Void> {
             LocationHistory lastLh = getLastLocationHistoryForGivenLocation(lh);
             if (lastLh != null) {
                 logger(TAG, "lastLh is %s and firstLh is %s", lastLh.toString(), lh.toString());
-                mList.add(new InactivityHistory(lh, lastLh));
+                if (lastLh.getTimestamp() - lh.getTimestamp() >= DURATION_THRESHOLD)
+                    mList.add(new InactivityHistory(lh, lastLh));
                 return lastLh.getTimestamp() + 1;
             }
         }
