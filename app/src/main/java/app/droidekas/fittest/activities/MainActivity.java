@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.tv_base)
     TextView tvTest;
-    @Bind(R.id.tv_next_act)
-    TextView next;
+    @Bind(R.id.bt_next_act)
+    Button next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
