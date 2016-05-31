@@ -15,7 +15,7 @@ import static app.droidekas.fittest.log.Logger.logger;
 /**
  * Created by Satyarth on 29/05/16.
  */
-public class Crunch extends AsyncTask<Context, Integer, Void> {
+public class Crunch extends AsyncTask<Context, String, Void> {
     public static final long HOURS = 60, MINUTES = 60, DAYS = 24;
     public static final long DURATION_THRESHOLD = 1 * HOURS * 1 * MINUTES;
     private static final String TAG = "Crunch";
@@ -37,13 +37,13 @@ public class Crunch extends AsyncTask<Context, Integer, Void> {
     @Override
     protected Void doInBackground(Context... params) {
         ctx = params[0];
+        //TODO figure out a better way to determine continuing sessions
         InactivityHistory.deleteAll(InactivityHistory.class);
         buildData();
         return null;
     }
 
     private void buildData() {
-        LocationHistory startLh = getFirstLocationHistoryAfterLastInactivityEvent(getLastInactivityPeriod());
 //        long startStamp = startLh != null ? startLh.getTimestamp() : MAX_LONG;
         long startStamp = 0l;
         while (MAX_LONG > startStamp)
@@ -74,8 +74,9 @@ public class Crunch extends AsyncTask<Context, Integer, Void> {
 
 
     @Override
-    protected void onProgressUpdate(Integer... values) {
+    protected void onProgressUpdate(String... values) {
         super.onProgressUpdate(values);
+
     }
 
 
@@ -111,6 +112,10 @@ public class Crunch extends AsyncTask<Context, Integer, Void> {
 
     public interface CrunchListener {
         void gotData();
+    }
+
+    public interface CrunchProgressListener {
+        void currentProgress(String s);
     }
 
 }
